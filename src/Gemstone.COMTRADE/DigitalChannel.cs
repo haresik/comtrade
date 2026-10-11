@@ -109,10 +109,22 @@ namespace Gemstone.COMTRADE
         /// <exception cref="FormatException">Name must be formatted as station_name:channel_name.</exception>
         public string? Name
         {
-            get => string.IsNullOrWhiteSpace(m_stationName) ? m_channelName : $"{m_stationName}:{m_channelName}";
+            get
+            {
+                if (string.IsNullOrEmpty(m_stationName))
+                    return null;
+
+                if (!string.IsNullOrEmpty(m_channelName))
+                    return $"{m_stationName}:{m_channelName}";
+
+                return m_stationName;
+            }
             set
             {
-                string[] parts = value?.Split(':') ?? Array.Empty<string>();
+                if (value is null)
+                    throw new ArgumentNullException(nameof(value));
+
+                string[] parts = value.Split(':');
 
                 if (parts.Length == 2)
                 {

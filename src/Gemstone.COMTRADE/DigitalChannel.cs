@@ -121,8 +121,7 @@ namespace Gemstone.COMTRADE
                 }
                 else
                 {
-                    m_stationName = string.Empty;
-                    m_channelName = parts[0].Trim();
+                    m_stationName = value;
                 }
             }
         }
